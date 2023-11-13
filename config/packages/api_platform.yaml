@@ -1,0 +1,71 @@
+api_platform:
+
+    title: 'JOY PHARMA API'
+    description: 'This projet is made with Symfony 6.3 and API Platform'
+    version: '1.0.0'
+    show_webby: false
+
+    openapi:
+        contact:
+            name: Joy PHARMA
+            url: https://joy-pharma.mg
+            email: admin@joy-pharma.mg
+        swagger_ui_extra_configuration:
+            docExpansion: full
+            filter: true
+
+    path_segment_name_generator: 'api_platform.path_segment_name_generator.dash'
+    enable_swagger: true
+    enable_swagger_ui: false
+    enable_re_doc: true
+    enable_entrypoint: true
+    enable_docs: true
+    enable_profiler: true
+
+    defaults:
+        pagination_client_enabled: true
+        pagination_items_per_page: 30
+        pagination_client_items_per_page: true
+        normalization_context:
+            skip_null_values: false
+
+        stateless: true
+        cache_headers:
+            vary: [ 'Content-Type', 'Authorization', 'Origin' ]
+        extra_properties:
+            standard_put: true
+            rfc_7807_compliant_errors: true
+
+    event_listeners_backward_compatibility_layer: false
+    keep_legacy_inflector: false
+
+    collection:
+        exists_parameter_name: 'exists'
+        order: 'ASC'
+        order_parameter_name: 'order'
+        pagination:
+            page_parameter_name: 'page'
+            enabled_parameter_name: 'pagination'
+            items_per_page_parameter_name: 'itemsPerPage'
+            partial_parameter_name: 'partial'
+
+    patch_formats:
+        json: [ 'application/json' ]
+
+    formats:
+        json:
+            mime_types: [ 'application/json' ]
+        html:
+            mime_types: [ 'text/html' ]
+        form:
+            mime_types: [ 'multipart/form-data' ]
+        csv:
+            mime_types: [ 'text/csv' ]
+    error_formats:
+        jsonproblem:
+            mime_types: [ 'application/problem+json' ]
+#
+#    docs_formats:
+#        jsonld: ['application/ld+json']
+#        jsonopenapi: ['application/vnd.openapi+json']
+#        html: ['text/html']

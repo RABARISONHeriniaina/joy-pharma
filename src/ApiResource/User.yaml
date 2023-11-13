@@ -1,0 +1,9 @@
+App\Entity\User:
+  operations:
+    ApiPlatform\Metadata\GetCollection:
+#      filters: [ 'user.order_filter', 'user.uuid_filter', 'user.search_filter', 'user.global_search_filter' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'You need to authenticate.'
+      openapi:
+        security:
+          - JWT: [ 'ROLE_ADMIN' ]
