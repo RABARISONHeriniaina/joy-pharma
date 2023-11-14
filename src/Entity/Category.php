@@ -31,9 +31,13 @@ class Category
     #[ORM\ManyToOne(inversedBy: 'categories')]
     private ?MediaFile $coverImage = null;
 
+    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'categories')]
+    private Collection $products;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,6 +113,33 @@ class Category
     public function setCoverImage(?MediaFile $coverImage): static
     {
         $this->coverImage = $coverImage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): static
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): static
+    {
+        if ($this->products->removeElement($product)) {
+            $product->removeCategory($this);
+        }
 
         return $this;
     }
