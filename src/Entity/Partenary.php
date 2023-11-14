@@ -23,6 +23,9 @@ class Partenary
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $link = null;
 
+    #[ORM\ManyToOne(inversedBy: 'partenaries')]
+    private ?MediaFile $image = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Partenary
     public function setLink(?string $link): static
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    public function getImage(): ?MediaFile
+    {
+        return $this->image;
+    }
+
+    public function setImage(?MediaFile $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

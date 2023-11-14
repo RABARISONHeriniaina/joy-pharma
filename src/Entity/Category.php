@@ -28,6 +28,9 @@ class Category
     #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'categories')]
     private Collection $categories;
 
+    #[ORM\ManyToOne(inversedBy: 'categories')]
+    private ?MediaFile $coverImage = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -94,6 +97,18 @@ class Category
     public function removeCategory(self $category): static
     {
         $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    public function getCoverImage(): ?MediaFile
+    {
+        return $this->coverImage;
+    }
+
+    public function setCoverImage(?MediaFile $coverImage): static
+    {
+        $this->coverImage = $coverImage;
 
         return $this;
     }

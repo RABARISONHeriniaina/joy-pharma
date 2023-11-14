@@ -25,6 +25,9 @@ class Type
     #[ORM\OneToMany(mappedBy: 'type', targetEntity: Category::class)]
     private Collection $categories;
 
+    #[ORM\ManyToOne(inversedBy: 'types')]
+    private ?MediaFile $coverImage = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -85,6 +88,18 @@ class Type
                 $category->setType(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCoverImage(): ?MediaFile
+    {
+        return $this->coverImage;
+    }
+
+    public function setCoverImage(?MediaFile $coverImage): static
+    {
+        $this->coverImage = $coverImage;
 
         return $this;
     }

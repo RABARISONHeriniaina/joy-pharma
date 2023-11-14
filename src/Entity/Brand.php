@@ -20,6 +20,9 @@ class Brand
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'brands')]
+    private ?MediaFile $image = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class Brand
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImage(): ?MediaFile
+    {
+        return $this->image;
+    }
+
+    public function setImage(?MediaFile $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }
