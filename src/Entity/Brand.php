@@ -7,6 +7,7 @@ use App\Entity\Traits\EntityTimestampTrait;
 use App\Repository\BrandRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: BrandRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -18,12 +19,15 @@ class Brand
     use EntityTimestampTrait;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['brand:read','brand:edit','brand:create'])]
     private ?string $label = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['brand:read','brand:edit','brand:create'])]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'brands')]
+    #[ORM\ManyToOne(inversedBy: 'brands', cascade: ['persist', 'remove'])]
+    #[Groups(['media-file:read','media-file:edit','media-file:create'])]
     private ?MediaFile $image = null;
 
     public function getLabel(): ?string

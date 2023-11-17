@@ -1,1 +1,98 @@
 App\Entity\Brand:
+  operations:
+    ApiPlatform\Metadata\GetCollection:
+      normalizationContext:
+        groups:
+          - 'brand:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'media-file:read'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get brand information.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Get:
+      normalizationContext:
+        groups:
+          - 'brand:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'media-file:read'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get brand information.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Post:
+      normalizationContext:
+        groups:
+          - 'brand:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'media-file:read'
+      denormalizationContext:
+        groups: [ 'brand:create' ]
+      validationContext:
+        groups: [ 'brand:create' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get create brands.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Put:
+      inputFormats:
+        json: [ 'application/json' ]
+      normalizationContext:
+        groups:
+          - 'brand:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'media-file:read'
+      denormalizationContext:
+        groups: [ 'brand:edit' ]
+      validationContext:
+        groups: [ 'brand:edit' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can edit brands.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Patch:
+      inputFormats:
+        json: [ 'application/json' ]
+      normalizationContext:
+        groups:
+          - 'brand:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'media-file:read'
+      denormalizationContext:
+        groups: [ 'brand:edit' ]
+      validationContext:
+        groups: [ 'brand:edit' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can edit brands.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Delete:
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only adminscan delete brands.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+
+  normalizationContext:
+    groups: ['brand:read']
+
+  denormalizationContext:
+    groups:
+      - 'brand:create'
+      - 'brand:edit'

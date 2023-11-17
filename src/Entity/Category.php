@@ -28,7 +28,7 @@ class Category
     #[ORM\ManyToOne(inversedBy: 'categories')]
     private ?Type $type = null;
 
-    #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'categories')]
+    #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'categories', mappedBy: "categories")]
     private Collection $categories;
 
     #[ORM\ManyToOne(inversedBy: 'categories')]

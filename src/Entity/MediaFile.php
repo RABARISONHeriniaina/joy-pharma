@@ -8,6 +8,7 @@ use App\Repository\MediaFileRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MediaFileRepository::class)]
 #[ORM\Table(name: 'media_files')]
@@ -18,12 +19,15 @@ class MediaFile
     use EntityIdTrait;
     use EntityTimestampTrait;
     #[ORM\Column(length: 255)]
+    #[Groups(['media-file:read','media-file:edit','media-file:create'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 10)]
+    #[Groups(['media-file:read','media-file:edit','media-file:create'])]
     private ?string $extension = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['media-file:read','media-file:edit','media-file:create'])]
     private ?string $originalName = null;
 
     #[ORM\OneToMany(mappedBy: 'coverImage', targetEntity: Type::class)]
