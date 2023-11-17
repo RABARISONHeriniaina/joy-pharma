@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\EntityIdTrait;
+use App\Entity\Traits\EntityTimestampTrait;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,13 +11,13 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[ORM\Table(name: 'products')]
+#[ORM\HasLifecycleCallbacks]
+
 class Product
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
+    use EntityIdTrait;
+    use EntityTimestampTrait;
     #[ORM\Column(length: 100)]
     private ?string $name = null;
 
@@ -42,11 +44,6 @@ class Product
         $this->categories = new ArrayCollection();
         $this->productPrices = new ArrayCollection();
         $this->discounts = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getName(): ?string

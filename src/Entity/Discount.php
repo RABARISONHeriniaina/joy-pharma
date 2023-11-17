@@ -2,18 +2,20 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\EntityIdTrait;
+use App\Entity\Traits\EntityTimestampTrait;
 use App\Repository\DiscountRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DiscountRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table(name: 'discounts')]
 class Discount
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
+    use EntityIdTrait;
+    use EntityTimestampTrait;
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $off = null;
 
@@ -32,11 +34,6 @@ class Discount
     #[ORM\ManyToOne(inversedBy: 'discounts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getOff(): ?string
     {

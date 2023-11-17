@@ -2,17 +2,20 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\EntityIdTrait;
+use App\Entity\Traits\EntityTimestampTrait;
 use App\Repository\BrandRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BrandRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table(name: 'brands')]
+
 class Brand
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use EntityIdTrait;
+    use EntityTimestampTrait;
 
     #[ORM\Column(length: 50)]
     private ?string $label = null;
@@ -22,11 +25,6 @@ class Brand
 
     #[ORM\ManyToOne(inversedBy: 'brands')]
     private ?MediaFile $image = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getLabel(): ?string
     {

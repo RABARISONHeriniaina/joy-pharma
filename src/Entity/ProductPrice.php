@@ -2,18 +2,20 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\EntityIdTrait;
+use App\Entity\Traits\EntityTimestampTrait;
 use App\Repository\ProductPriceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductPriceRepository::class)]
+#[ORM\Table(name: 'product_prices')]
+#[ORM\HasLifecycleCallbacks]
+
 class ProductPrice
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
+    use EntityIdTrait;
+    use EntityTimestampTrait;
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $price = null;
 
@@ -23,11 +25,6 @@ class ProductPrice
     #[ORM\ManyToOne(inversedBy: 'productPrices')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getPrice(): ?string
     {

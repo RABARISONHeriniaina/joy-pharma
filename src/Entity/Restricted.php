@@ -2,19 +2,20 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\EntityIdTrait;
+use App\Entity\Traits\EntityTimestampTrait;
 use App\Repository\RestrictedRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RestrictedRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table(name: 'restricted')]
 class Restricted
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
+    use EntityIdTrait;
+    use EntityTimestampTrait;
     #[ORM\Column(length: 20)]
     private ?string $waitingFor = null;
 
@@ -24,11 +25,6 @@ class Restricted
     public function __construct()
     {
         $this->products = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getWaitingFor(): ?string

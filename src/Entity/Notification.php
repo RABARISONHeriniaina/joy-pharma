@@ -2,28 +2,25 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\EntityIdTrait;
+use App\Entity\Traits\EntityTimestampTrait;
 use App\Repository\NotificationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NotificationRepository::class)]
+#[ORM\Table(name: 'notifications')]
+#[ORM\HasLifecycleCallbacks]
+
 class Notification
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
+    use EntityIdTrait;
+    use EntityTimestampTrait;
     #[ORM\Column(length: 100)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getTitle(): ?string
     {

@@ -2,19 +2,21 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\EntityIdTrait;
+use App\Entity\Traits\EntityTimestampTrait;
 use App\Repository\MediaFileRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MediaFileRepository::class)]
+#[ORM\Table(name: 'media_files')]
+#[ORM\HasLifecycleCallbacks]
+
 class MediaFile
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
+    use EntityIdTrait;
+    use EntityTimestampTrait;
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
@@ -42,11 +44,6 @@ class MediaFile
         $this->categories = new ArrayCollection();
         $this->partenaries = new ArrayCollection();
         $this->brands = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getName(): ?string
