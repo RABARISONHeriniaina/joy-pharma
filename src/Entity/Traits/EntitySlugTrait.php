@@ -7,36 +7,27 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-trait EntityStatusTrait
+trait EntitySlugTrait
 {
-    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
-    #[Groups(['status:read'])]
-    #[Assert\Type(type: 'bool', groups: ['admin:write'])]
-    private bool $active = true;
+    #[ORM\Column]
+    #[Groups(['slug:read'])]
+    private ?string $slug = null;
 
-    public function isActive(): bool
+    /**
+     * @return string|null
+     */
+    public function getSlug(): ?string
     {
-        return $this->active;
+        return $this->slug;
     }
 
-    public function setActive(bool $active): static
+    /**
+     * @param string|null $slug
+     * @return void
+     */
+    public function setSlug(?string $slug): void
     {
-        $this->active = $active;
-
-        return $this;
+        $this->slug = $slug;
     }
 
-    public function activate(): static
-    {
-        $this->active = true;
-
-        return $this;
-    }
-
-    public function deactivate(): static
-    {
-        $this->active = false;
-
-        return $this;
-    }
 }

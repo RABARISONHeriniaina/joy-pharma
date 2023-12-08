@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+//use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Traits\EntityIdTrait;
 use App\Entity\Traits\EntityTimestampTrait;
 use App\Repository\MediaFileRepository;
@@ -9,9 +10,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+
+use Symfony\Component\Serializer\Annotation\ApiProperty;
 
 #[ORM\Entity(repositoryClass: MediaFileRepository::class)]
 #[ORM\Table(name: 'media_files')]
+#[Vich\Uploadable]
 #[ORM\HasLifecycleCallbacks]
 
 class MediaFile
@@ -19,15 +26,15 @@ class MediaFile
     use EntityIdTrait;
     use EntityTimestampTrait;
     #[ORM\Column(length: 255)]
-    #[Groups(['media-file:read','media-file:edit','media-file:create'])]
+    #[Groups(['media-file:read'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 10)]
-    #[Groups(['media-file:read','media-file:edit','media-file:create'])]
-    private ?string $extension = null;
+    #[Groups(['media-file:read'])]
+    private ?string $mimeType = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['media-file:read','media-file:edit','media-file:create'])]
+    #[Groups(['media-file:read'])]
     private ?string $originalName = null;
 
     #[ORM\OneToMany(mappedBy: 'coverImage', targetEntity: Type::class)]
@@ -41,6 +48,14 @@ class MediaFile
 
     #[ORM\OneToMany(mappedBy: 'image', targetEntity: Brand::class)]
     private Collection $brands;
+
+    #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'name', mimeType: 'mimeType', originalName: 'originalName')]
+    #[Groups(['media-file:create', 'media-file:edit'])]
+    private ?File $file = null;
+
+    #[Groups(['media-file:read'])]
+    private ?string $path = null;
+
 
     public function __construct()
     {
@@ -62,14 +77,14 @@ class MediaFile
         return $this;
     }
 
-    public function getExtension(): ?string
+    public function getMimeType(): ?string
     {
-        return $this->extension;
+        return $this->mimeType;
     }
 
-    public function setExtension(string $extension): static
+    public function setMimeType(string $mimeType): static
     {
-        $this->extension = $extension;
+        $this->mimeType = $mimeType;
 
         return $this;
     }
@@ -205,4 +220,33 @@ class MediaFile
 
         return $this;
     }
+
+    /**
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $file
+     */
+    public function setFile(?File $file = null): void
+    {
+        $this->file = $file;
+
+        if (null !== $file) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+    public function setPath(?string $path): void
+    {
+        $this->path = $path;
+    }
+
+    public function getPath(): ?string
+    {
+        return $this->path;
+    }
+
 }

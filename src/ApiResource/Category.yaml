@@ -1,1 +1,110 @@
 App\Entity\Category:
+  operations:
+    ApiPlatform\Metadata\GetCollection:
+      normalizationContext:
+        groups:
+          - 'category:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'slug:read'
+          - 'media-file:read'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get categories information.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Get:
+      normalizationContext:
+        groups:
+          - 'category:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'slug:read'
+          - 'media-file:read'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get categories information.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Post:
+      inputFormats:
+        json: [ 'application/json' ]
+        multipart: [ 'multipart/form-data' ]
+      normalizationContext:
+        groups:
+          - 'category:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'slug:read'
+          - 'media-file:read'
+      denormalizationContext:
+        groups:
+          - 'category:create'
+          - 'media-file:create'
+      validationContext:
+        groups:
+          - 'category:create'
+          - 'media-file:create'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get create category.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Put:
+      inputFormats:
+        json: [ 'application/json' ]
+        multipart: [ 'multipart/form-data' ]
+      normalizationContext:
+        groups:
+          - 'category:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'media-file:read'
+      denormalizationContext:
+        groups: [ 'category:edit' ]
+      validationContext:
+        groups: [ 'category:edit' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can edit category.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Patch:
+      inputFormats:
+        json: [ 'application/json' ]
+        multipart: [ 'multipart/form-data' ]
+      normalizationContext:
+        groups:
+          - 'category:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'media-file:read'
+      denormalizationContext:
+        groups: [ 'category:edit' ]
+      validationContext:
+        groups: [ 'category:edit' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can edit category.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Delete:
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only adminscan delete category.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+
+  normalizationContext:
+    groups: ['category:read']
+
+  denormalizationContext:
+    groups:
+      - 'category:create'
+      - 'category:edit'

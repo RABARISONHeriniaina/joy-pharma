@@ -7,6 +7,7 @@ use App\Entity\Traits\EntityTimestampTrait;
 use App\Repository\ManufacturerRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ManufacturerRepository::class)]
 #[ORM\Table(name: 'manufacturer')]
@@ -17,9 +18,11 @@ class Manufacturer
     use EntityTimestampTrait;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['manufacturer:read', 'manufacturer:create', 'manufacturer:edit'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['manufacturer:read', 'manufacturer:create', 'manufacturer:edit'])]
     private ?string $description = null;
 
     public function getName(): ?string

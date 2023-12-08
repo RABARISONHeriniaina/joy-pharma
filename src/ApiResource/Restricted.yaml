@@ -1,1 +1,97 @@
 App\Entity\Restricted:
+  operations:
+    ApiPlatform\Metadata\GetCollection:
+      normalizationContext:
+        groups:
+          - 'restricted:read'
+          - 'id:read'
+          - 'timestamp:read'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get restricteds information.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Get:
+      normalizationContext:
+        groups:
+          - 'restricted:read'
+          - 'id:read'
+          - 'timestamp:read'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get restricted information.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Post:
+      inputFormats:
+        json: [ 'application/json' ]
+      normalizationContext:
+        groups:
+          - 'restricted:read'
+          - 'id:read'
+          - 'timestamp:read'
+      denormalizationContext:
+        groups:
+          - 'restricted:create'
+      validationContext:
+        groups:
+          - 'restricted:create'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get create restricteds.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Put:
+      inputFormats:
+        json: [ 'application/json' ]
+      normalizationContext:
+        groups:
+          - 'restricted:read'
+          - 'id:read'
+          - 'timestamp:read'
+      denormalizationContext:
+        groups: [ 'restricted:edit' ]
+      validationContext:
+        groups: [ 'restricted:edit' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can edit restricteds.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Patch:
+      inputFormats:
+        json: [ 'application/json' ]
+      normalizationContext:
+        groups:
+          - 'restricted:read'
+          - 'id:read'
+          - 'timestamp:read'
+      denormalizationContext:
+        groups: [ 'restricted:edit' ]
+      validationContext:
+        groups: [ 'restricted:edit' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can edit restricteds.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Delete:
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only adminscan delete restricteds.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+
+  normalizationContext:
+    groups: ['restricted:read']
+
+  denormalizationContext:
+    groups:
+      - 'restricted:create'
+      - 'restricted:edit'

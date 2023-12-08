@@ -7,6 +7,7 @@ use App\Entity\Traits\EntityTimestampTrait;
 use App\Repository\DiscountRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: DiscountRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -17,22 +18,28 @@ class Discount
     use EntityIdTrait;
     use EntityTimestampTrait;
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    #[Groups(['discount:read', 'discount:create', 'discount:edit'])]
     private ?string $off = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['discount:read', 'discount:create', 'discount:edit'])]
     private ?string $detail = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['discount:read', 'discount:create', 'discount:edit'])]
     private ?string $reason = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['discount:read', 'discount:create', 'discount:edit'])]
     private ?\DateTimeInterface $startedAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['discount:read', 'discount:create', 'discount:edit'])]
     private ?\DateTimeInterface $endedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'discounts')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['discount:read', 'discount:create', 'discount:edit', 'product:read'])]
     private ?Product $product = null;
 
     public function getOff(): ?string

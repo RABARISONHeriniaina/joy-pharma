@@ -1,1 +1,99 @@
 App\Entity\Manufacturer:
+  operations:
+    ApiPlatform\Metadata\GetCollection:
+      normalizationContext:
+        groups:
+          - 'manufacturer:read'
+          - 'id:read'
+          - 'timestamp:read'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get manufacturers information.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Get:
+      normalizationContext:
+        groups:
+          - 'manufacturer:read'
+          - 'id:read'
+          - 'timestamp:read'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get manufacturer information.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Post:
+      inputFormats:
+        json: [ 'application/json' ]
+      normalizationContext:
+        groups:
+          - 'manufacturer:read'
+          - 'id:read'
+          - 'timestamp:read'
+      denormalizationContext:
+        groups:
+          - 'manufacturer:create'
+      validationContext:
+        groups:
+          - 'manufacturer:create'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get create manufacturers.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Put:
+      inputFormats:
+        json: [ 'application/json' ]
+        multipart: [ 'multipart/form-data' ]
+      normalizationContext:
+        groups:
+          - 'manufacturer:read'
+          - 'id:read'
+          - 'timestamp:read'
+      denormalizationContext:
+        groups: [ 'manufacturer:edit' ]
+      validationContext:
+        groups: [ 'manufacturer:edit' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can edit manufacturers.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Patch:
+      inputFormats:
+        json: [ 'application/json' ]
+        multipart: [ 'multipart/form-data' ]
+      normalizationContext:
+        groups:
+          - 'manufacturer:read'
+          - 'id:read'
+          - 'timestamp:read'
+      denormalizationContext:
+        groups: [ 'manufacturer:edit' ]
+      validationContext:
+        groups: [ 'manufacturer:edit' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can edit manufacturers.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Delete:
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only adminscan delete manufacturers.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+
+  normalizationContext:
+    groups: ['manufacturer:read']
+
+  denormalizationContext:
+    groups:
+      - 'manufacturer:create'
+      - 'manufacturer:edit'

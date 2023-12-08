@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UnitRepository::class)]
 #[ORM\Table(name: 'units')]
@@ -18,9 +19,11 @@ class Unit
     use EntityIdTrait;
     use EntityTimestampTrait;
     #[ORM\Column(length: 25)]
+    #[Groups(['unit:read', 'unit:create', 'unit:edit'])]
     private ?string $label = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['unit:read', 'unit:create', 'unit:edit'])]
     private ?string $description = null;
 
     #[ORM\OneToMany(mappedBy: 'unit', targetEntity: ProductPrice::class)]

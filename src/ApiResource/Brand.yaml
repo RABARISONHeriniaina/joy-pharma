@@ -8,7 +8,7 @@ App\Entity\Brand:
           - 'timestamp:read'
           - 'media-file:read'
       security: 'is_granted("ROLE_ADMIN")'
-      securityMessage: 'Only admins can get brand information.'
+      securityMessage: 'Only admins can get brands information.'
       openapi:
         security:
           -   JWT: [ 'ROLE_ADMIN' ]
@@ -27,6 +27,9 @@ App\Entity\Brand:
           -   JWT: [ 'ROLE_ADMIN' ]
 
     ApiPlatform\Metadata\Post:
+      inputFormats:
+        json: [ 'application/json' ]
+        multipart: [ 'multipart/form-data' ]
       normalizationContext:
         groups:
           - 'brand:read'
@@ -34,9 +37,13 @@ App\Entity\Brand:
           - 'timestamp:read'
           - 'media-file:read'
       denormalizationContext:
-        groups: [ 'brand:create' ]
+        groups:
+          - 'brand:create'
+          - 'media-file:create'
       validationContext:
-        groups: [ 'brand:create' ]
+        groups:
+          - 'brand:create'
+          - 'media-file:create'
       security: 'is_granted("ROLE_ADMIN")'
       securityMessage: 'Only admins can get create brands.'
       openapi:
@@ -46,6 +53,7 @@ App\Entity\Brand:
     ApiPlatform\Metadata\Put:
       inputFormats:
         json: [ 'application/json' ]
+        multipart: [ 'multipart/form-data' ]
       normalizationContext:
         groups:
           - 'brand:read'
@@ -65,6 +73,7 @@ App\Entity\Brand:
     ApiPlatform\Metadata\Patch:
       inputFormats:
         json: [ 'application/json' ]
+        multipart: [ 'multipart/form-data' ]
       normalizationContext:
         groups:
           - 'brand:read'

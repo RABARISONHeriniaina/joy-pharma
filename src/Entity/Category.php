@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use App\Entity\Traits\EntityIdTrait;
+use App\Entity\Traits\EntitySlugTrait;
 use App\Entity\Traits\EntityTimestampTrait;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ORM\Table(name: 'categories')]
@@ -19,22 +21,30 @@ class Category
 
     use EntityIdTrait;
     use EntityTimestampTrait;
+    use EntitySlugTrait;
+    
     #[ORM\Column(length: 100)]
+    #[Groups(['category:read','category:edit','category:create', 'type: read'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['category:read','category:edit','category:create', 'type:read'])]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'categories')]
+    #[ORM\ManyToOne(targetEntity: Type::class,inversedBy: 'categories')]
+    #[Groups(['category:read', 'category:create', 'category:edit'])]
     private ?Type $type = null;
 
-    #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'categories', mappedBy: "categories")]
+    #[ORM\ManyToMany(targetEntity: self::class)]
+    #[Groups(['category:read', 'category:create', 'category:edit', 'type:read'])]
     private Collection $categories;
 
     #[ORM\ManyToOne(inversedBy: 'categories')]
+    #[Groups(['media-file:read','media-file:edit','media-file:create'])]
     private ?MediaFile $coverImage = null;
 
-    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'categories')]
+    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'categories', cascade: ['persist', 'remove'])]
+    #[Groups(['category:read'])]
     private Collection $products;
 
     public function __construct()

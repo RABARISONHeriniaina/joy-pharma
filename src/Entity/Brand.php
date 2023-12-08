@@ -26,7 +26,7 @@ class Brand
     #[Groups(['brand:read','brand:edit','brand:create'])]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'brands', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'brands')]
     #[Groups(['media-file:read','media-file:edit','media-file:create'])]
     private ?MediaFile $image = null;
 

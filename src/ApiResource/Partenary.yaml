@@ -1,1 +1,110 @@
 App\Entity\Partenary:
+  operations:
+    ApiPlatform\Metadata\GetCollection:
+      normalizationContext:
+        groups:
+          - 'partenary:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'slug:read'
+          - 'media-file:read'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get partenaries information.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Get:
+      normalizationContext:
+        groups:
+          - 'partenary:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'slug:read'
+          - 'media-file:read'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get partenaries information.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Post:
+      inputFormats:
+        json: [ 'application/json' ]
+        multipart: [ 'multipart/form-data' ]
+      normalizationContext:
+        groups:
+          - 'partenary:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'slug:read'
+          - 'media-file:read'
+      denormalizationContext:
+        groups:
+          - 'partenary:create'
+          - 'media-file:create'
+      validationContext:
+        groups:
+          - 'partenary:create'
+          - 'media-file:create'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get create partenary.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Put:
+      inputFormats:
+        json: [ 'application/json' ]
+        multipart: [ 'multipart/form-data' ]
+      normalizationContext:
+        groups:
+          - 'partenary:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'media-file:read'
+      denormalizationContext:
+        groups: [ 'partenary:edit' ]
+      validationContext:
+        groups: [ 'partenary:edit' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can edit partenary.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Patch:
+      inputFormats:
+        json: [ 'application/json' ]
+        multipart: [ 'multipart/form-data' ]
+      normalizationContext:
+        groups:
+          - 'partenary:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'media-file:read'
+      denormalizationContext:
+        groups: [ 'partenary:edit' ]
+      validationContext:
+        groups: [ 'partenary:edit' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can edit partenary.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Delete:
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only adminscan delete partenary.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+
+  normalizationContext:
+    groups: ['partenary:read']
+
+  denormalizationContext:
+    groups:
+      - 'partenary:create'
+      - 'partenary:edit'

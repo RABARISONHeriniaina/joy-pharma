@@ -1,1 +1,98 @@
 App\Entity\Type:
+  operations:
+    ApiPlatform\Metadata\GetCollection:
+      normalizationContext:
+        groups:
+          - 'type:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'media-file:read'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get types information.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Get:
+      normalizationContext:
+        groups:
+          - 'type:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'media-file:read'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get type information.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Post:
+      normalizationContext:
+        groups:
+          - 'type:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'media-file:read'
+      denormalizationContext:
+        groups: [ 'type:create', 'media-file:create' ]
+      validationContext:
+        groups: [ 'type:create', 'media-file:create' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get create type.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Put:
+      inputFormats:
+        json: [ 'application/json' ]
+      normalizationContext:
+        groups:
+          - 'type:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'media-file:read'
+      denormalizationContext:
+        groups: [ 'type:edit', 'media-file:edit' ]
+      validationContext:
+        groups: [ 'type:edit', 'media-file:edit' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can edit type.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Patch:
+      inputFormats:
+        json: [ 'application/json' ]
+      normalizationContext:
+        groups:
+          - 'type:read'
+          - 'id:read'
+          - 'timestamp:read'
+          - 'media-file:read'
+      denormalizationContext:
+        groups: [ 'type:edit', 'media-file:edit' ]
+      validationContext:
+        groups: [ 'type:edit', 'media-file:edit' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can edit type.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Delete:
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can delete type.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+
+  normalizationContext:
+    groups: ['type:read']
+
+  denormalizationContext:
+    groups:
+      - 'type:create'
+      - 'type:edit'

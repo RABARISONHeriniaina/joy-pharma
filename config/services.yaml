@@ -8,6 +8,9 @@ parameters:
     app.locale: '%env(APP_LOCALE)%'
     app.locales: [ 'fr', 'en' ]
 
+    app.storage.images: '%app.url%/storage/images/' # Stockage Image URL
+
+
 services:
     # default configuration for services in *this* file
     _defaults:

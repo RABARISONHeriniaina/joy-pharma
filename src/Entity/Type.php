@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use App\Entity\Traits\EntityIdTrait;
+use App\Entity\Traits\EntitySlugTrait;
 use App\Entity\Traits\EntityTimestampTrait;
 use App\Repository\TypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TypeRepository::class)]
 #[ORM\Table(name: 'types')]
@@ -19,16 +21,21 @@ class Type
 
     use EntityIdTrait;
     use EntityTimestampTrait;
+    use EntitySlugTrait;
     #[ORM\Column(length: 100)]
+    #[Groups(['type:read','type:edit','type:create'])]
     private ?string $label = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['type:read','type:edit','type:create'])]
     private ?string $description = null;
 
     #[ORM\OneToMany(mappedBy: 'type', targetEntity: Category::class)]
+    #[Groups(['type:read'])]
     private Collection $categories;
 
     #[ORM\ManyToOne(inversedBy: 'types')]
+    #[Groups(['media-file:read','media-file:edit','media-file:create'])]
     private ?MediaFile $coverImage = null;
 
     public function __construct()

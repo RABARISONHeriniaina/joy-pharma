@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Traits\EntityIdTrait;
+use App\Entity\Traits\EntitySlugTrait;
 use App\Entity\Traits\EntityTimestampTrait;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -18,6 +19,7 @@ class Product
 {
     use EntityIdTrait;
     use EntityTimestampTrait;
+    use EntitySlugTrait;
     #[ORM\Column(length: 100)]
     private ?string $name = null;
 

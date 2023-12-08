@@ -1,1 +1,99 @@
 App\Entity\Discount:
+  operations:
+    ApiPlatform\Metadata\GetCollection:
+      normalizationContext:
+        groups:
+          - 'discount:read'
+          - 'id:read'
+          - 'timestamp:read'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get discounts information.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Get:
+      normalizationContext:
+        groups:
+          - 'discount:read'
+          - 'id:read'
+          - 'timestamp:read'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get discount information.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Post:
+      inputFormats:
+        json: [ 'application/json' ]
+      normalizationContext:
+        groups:
+          - 'discount:read'
+          - 'id:read'
+          - 'timestamp:read'
+      denormalizationContext:
+        groups:
+          - 'discount:create'
+      validationContext:
+        groups:
+          - 'discount:create'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get create discounts.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Put:
+      inputFormats:
+        json: [ 'application/json' ]
+        multipart: [ 'multipart/form-data' ]
+      normalizationContext:
+        groups:
+          - 'discount:read'
+          - 'id:read'
+          - 'timestamp:read'
+      denormalizationContext:
+        groups: [ 'discount:edit' ]
+      validationContext:
+        groups: [ 'discount:edit' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can edit discounts.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Patch:
+      inputFormats:
+        json: [ 'application/json' ]
+        multipart: [ 'multipart/form-data' ]
+      normalizationContext:
+        groups:
+          - 'discount:read'
+          - 'id:read'
+          - 'timestamp:read'
+      denormalizationContext:
+        groups: [ 'discount:edit' ]
+      validationContext:
+        groups: [ 'discount:edit' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can edit discounts.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Delete:
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only adminscan delete discounts.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+
+  normalizationContext:
+    groups: ['discount:read']
+
+  denormalizationContext:
+    groups:
+      - 'discount:create'
+      - 'discount:edit'

@@ -1,1 +1,99 @@
 App\Entity\Unit:
+  operations:
+    ApiPlatform\Metadata\GetCollection:
+      normalizationContext:
+        groups:
+          - 'unit:read'
+          - 'id:read'
+          - 'timestamp:read'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get units information.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Get:
+      normalizationContext:
+        groups:
+          - 'unit:read'
+          - 'id:read'
+          - 'timestamp:read'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get unit information.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Post:
+      inputFormats:
+        json: [ 'application/json' ]
+      normalizationContext:
+        groups:
+          - 'unit:read'
+          - 'id:read'
+          - 'timestamp:read'
+      denormalizationContext:
+        groups:
+          - 'unit:create'
+      validationContext:
+        groups:
+          - 'unit:create'
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can get create units.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Put:
+      inputFormats:
+        json: [ 'application/json' ]
+        multipart: [ 'multipart/form-data' ]
+      normalizationContext:
+        groups:
+          - 'unit:read'
+          - 'id:read'
+          - 'timestamp:read'
+      denormalizationContext:
+        groups: [ 'unit:edit' ]
+      validationContext:
+        groups: [ 'unit:edit' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can edit units.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Patch:
+      inputFormats:
+        json: [ 'application/json' ]
+        multipart: [ 'multipart/form-data' ]
+      normalizationContext:
+        groups:
+          - 'unit:read'
+          - 'id:read'
+          - 'timestamp:read'
+      denormalizationContext:
+        groups: [ 'unit:edit' ]
+      validationContext:
+        groups: [ 'unit:edit' ]
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only admins can edit units.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+    ApiPlatform\Metadata\Delete:
+      security: 'is_granted("ROLE_ADMIN")'
+      securityMessage: 'Only adminscan delete units.'
+      openapi:
+        security:
+          -   JWT: [ 'ROLE_ADMIN' ]
+
+
+  normalizationContext:
+    groups: ['unit:read']
+
+  denormalizationContext:
+    groups:
+      - 'unit:create'
+      - 'unit:edit'

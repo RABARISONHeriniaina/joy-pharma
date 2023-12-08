@@ -7,6 +7,7 @@ use App\Entity\Traits\EntityTimestampTrait;
 use App\Repository\PartenaryRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PartenaryRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -17,15 +18,19 @@ class Partenary
     use EntityIdTrait;
     use EntityTimestampTrait;
     #[ORM\Column(length: 50)]
+    #[Groups(['partenary:read', 'partenary:create', 'partenary:edit'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['partenary:read', 'partenary:create', 'partenary:edit'])]
     private ?string $description = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['partenary:read', 'partenary:create', 'partenary:edit'])]
     private ?string $link = null;
 
     #[ORM\ManyToOne(inversedBy: 'partenaries')]
+    #[Groups(['media-file:read', 'media-file:create', 'media-file:edit'])]
     private ?MediaFile $image = null;
 
     public function getName(): ?string

@@ -8,6 +8,7 @@ use App\Repository\RestrictedRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: RestrictedRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -17,6 +18,7 @@ class Restricted
     use EntityIdTrait;
     use EntityTimestampTrait;
     #[ORM\Column(length: 20)]
+    #[Groups(['restricted:read', 'restricted:create', 'restricted:edit'])]
     private ?string $waitingFor = null;
 
     #[ORM\OneToMany(mappedBy: 'restricted', targetEntity: Product::class)]
