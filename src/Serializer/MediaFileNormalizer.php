@@ -5,15 +5,11 @@ namespace App\Serializer;
 use App\Entity\MediaFile;
 use App\Service\MediaFileService;
 use ArrayObject;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-/**
- * @method  getSupportedTypes(?string $format)
- */
 class MediaFileNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
@@ -23,7 +19,7 @@ class MediaFileNormalizer implements NormalizerInterface, NormalizerAwareInterfa
     {
     }
 
-    public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         if (isset($context[self::ALREADY_CALLED])) {
             return false;
@@ -47,5 +43,10 @@ class MediaFileNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         $object->setPath($absolutePath);
 
         return $this->normalizer->normalize($object, $format, $context);
+    }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [MediaFile::class];
     }
 }
