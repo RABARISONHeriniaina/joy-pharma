@@ -10,13 +10,12 @@ use ApiPlatform\OpenApi\Model\Server;
 use ApiPlatform\OpenApi\OpenApi;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-readonly class OpenApiFactory implements OpenApiFactoryInterface
+class OpenApiFactory implements OpenApiFactoryInterface
 {
     public function __construct(
         private OpenApiFactoryInterface $decorated,
         private ParameterBagInterface   $parameterBag,
-    )
-    {
+    ) {
     }
 
     public function __invoke(array $context = []): OpenApi
